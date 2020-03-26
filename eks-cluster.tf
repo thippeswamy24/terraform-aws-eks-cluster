@@ -64,7 +64,7 @@ resource "aws_security_group_rule" "eks-cluster-ingress-node-https" {
 }
 
 resource "aws_security_group_rule" "eks-cluster-ingress-workstation-https" {
-  cidr_blocks       = ["${local.workstation-external-cidr}"]
+  cidr_blocks       = [local.workstation-external-cidr]
   description       = "Allow workstation to communicate with the cluster API Server"
   from_port         = 443
   protocol          = "tcp"
@@ -86,7 +86,7 @@ resource "aws_eks_cluster" "eks-cluster" {
   # enabled_cluster_log_types = ["api", "audit", "scheduler", "controllerManager"]
 
   vpc_config {
-    security_group_ids = ["${aws_security_group.eks-cluster.id}"]
+    security_group_ids = [aws_security_group.eks-cluster.id]
     subnet_ids         = [aws_subnet.eks-public.*.id, aws_subnet.eks-private.*.id]
   }
 
