@@ -73,18 +73,18 @@ resource "aws_nat_gateway" "nat_gw" {
   subnet_id     = aws_subnet.eks-public.*.id[count.index]  #public subnet 
   depends_on    = [aws_internet_gateway.eks-igw]
 
-  tags {
-    Name = "gw NAT"
-  }
+ # tags {
+ #   Name = "gw NAT"
+ # }
 }
 
 
 resource "aws_route_table" "eks-private" {
   vpc_id = aws_vpc.eks.id
 
-  tags {
-        Name = "route table for private subnets"
-    }
+  #tags {
+   #     Name = "route table for private subnets"
+    #}
 }
 
 resource "aws_route_table_association" "eks-private" {
