@@ -75,7 +75,7 @@ resource "aws_launch_configuration" "eks-private-lc" {
   instance_type               = var.worker-node-instance_type # use instance variable
   key_name                    = var.ssh_key_pair
   name_prefix                 = "eks-private"
-  security_groups             = ["${aws_security_group.eks-node.id}"]
+  security_groups             = [aws_security_group.eks-node.id]
   user_data_base64            = base64encode(local.eks-node-private-userdata)
   
   root_block_device {
@@ -95,7 +95,7 @@ resource "aws_autoscaling_group" "eks-private-asg" {
   max_size             = 2
   min_size             = 1
   name                 = "eks-private"
-  vpc_zone_identifier  = ["${aws_subnet.eks-private.*.id}"]
+  vpc_zone_identifier  = [aws_subnet.eks-private.*.id]
 
   tag {
     key                 = "Name"
@@ -152,10 +152,10 @@ resource "aws_cloudwatch_metric_alarm" "eks-cpu-alarm-private" {
   threshold = "80"
 
 dimensions = {
-  "AutoScalingGroupName" = "${aws_autoscaling_group.eks-private-asg.name}"
+  "AutoScalingGroupName" = "aws_autoscaling_group.eks-private-asg.name"
 }
   actions_enabled = true
-  alarm_actions = ["${aws_autoscaling_policy.eks-cpu-policy-private.arn}"]
+  alarm_actions = [aws_autoscaling_policy.eks-cpu-policy-private.arn]
 }
 
 # scale down policy
@@ -184,5 +184,5 @@ dimensions = {
   "AutoScalingGroupName" = aws_autoscaling_group.eks-private-asg.name
 }
   actions_enabled = true
-  alarm_actions = ["${aws_autoscaling_policy.eks-cpu-policy-scaledown-private.arn}"]
+  alarm_actions = ["aws_autoscaling_policy.eks-cpu-policy-scaledown-private.arn]
 }
