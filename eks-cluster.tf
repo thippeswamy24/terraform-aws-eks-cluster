@@ -68,7 +68,7 @@ resource "aws_security_group_rule" "eks-cluster-ingress-workstation-https" {
   description       = "Allow workstation to communicate with the cluster API Server"
   from_port         = 443
   protocol          = "tcp"
-  security_group_id = "${aws_security_group.eks-cluster.id}"
+  security_group_id = aws_security_group.eks-cluster.id
   to_port           = 443
   type              = "ingress"
 }
@@ -80,9 +80,9 @@ resource "aws_security_group_rule" "eks-cluster-ingress-workstation-https" {
 
 resource "aws_eks_cluster" "eks-cluster" {
 
-  name     = "${var.cluster-name}"
-  role_arn = "${aws_iam_role.eks-cluster.arn}"
-  version  = "${var.eks_version}"
+  name     = var.cluster-name
+  role_arn = aws_iam_role.eks-cluster.arn
+  version  = var.eks_version
   # enabled_cluster_log_types = ["api", "audit", "scheduler", "controllerManager"]
 
   vpc_config {
