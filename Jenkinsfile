@@ -36,8 +36,8 @@ pipeline {
         //stage('terraform apply') {
            // steps {
             //    sh 'sudo /home/ec2-user/terraform apply --auto-approve /home/ec2-user/newfolder'
-           / }
-       / }
+          // }
+       // }
         stage('terraform ended') {
             steps {
                 sh 'echo "Ended....!!"'
