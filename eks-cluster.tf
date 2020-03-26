@@ -46,12 +46,6 @@ resource "aws_security_group" "eks-cluster" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  tags = "${
-    map(
-     "Name", "EKS - kubernetes master sg"
-    )
-  }"
 }
 
 ##
@@ -97,7 +91,7 @@ resource "aws_eks_cluster" "eks-cluster" {
   }
 
   depends_on = [
-    "aws_iam_role_policy_attachment.eks-cluster-AmazonEKSClusterPolicy",
-    "aws_iam_role_policy_attachment.eks-cluster-AmazonEKSServicePolicy",
+    aws_iam_role_policy_attachment.eks-cluster-AmazonEKSClusterPolicy,
+    aws_iam_role_policy_attachment.eks-cluster-AmazonEKSServicePolicy,
   ]
 }
