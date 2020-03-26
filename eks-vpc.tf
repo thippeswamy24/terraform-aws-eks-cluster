@@ -27,9 +27,9 @@ resource "aws_subnet" "eks-public" {
 resource "aws_internet_gateway" "eks-igw" {
   vpc_id = aws_vpc.eks.id
 
-  tags {
-    Name = "eks-internet-gateway"
-  }
+#  tags {
+ #   Name = "eks-internet-gateway"
+ # }
 }
 
 resource "aws_route_table" "eks-public" {
