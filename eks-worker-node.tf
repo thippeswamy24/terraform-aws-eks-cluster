@@ -184,5 +184,5 @@ dimensions = {
   "AutoScalingGroupName" = aws_autoscaling_group.eks-private-asg.name
 }
   actions_enabled = true
-  alarm_actions = ["aws_autoscaling_policy.eks-cpu-policy-scaledown-private.arn]
+  alarm_actions = [aws_autoscaling_policy.eks-cpu-policy-scaledown-private.arn]
 }
